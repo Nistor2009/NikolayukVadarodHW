@@ -2,7 +2,7 @@ package by.vadarod.nikolatyk_v.repository;
 
 import by.vadarod.nikolatyk_v.config.HibernateConnection;
 import by.vadarod.nikolatyk_v.entity.Client;
-import by.vadarod.nikolatyk_v.entity.States;
+import by.vadarod.nikolatyk_v.entity.Status;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
@@ -61,7 +61,7 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Client updateClientState(Long id, States state) {
+    public Client updateClientState(Long id, Status state) {
         EntityManager entityManager = HibernateConnection.getEntityManager();
         Client client = getClientById(id);
         if (client != null) {

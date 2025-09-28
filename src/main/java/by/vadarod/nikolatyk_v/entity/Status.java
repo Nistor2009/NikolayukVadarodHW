@@ -1,13 +1,13 @@
 package by.vadarod.nikolatyk_v.entity;
 
-public enum States {
+public enum Status {
     ACTIVE("ACTIVE"),
     BLOCKED("BLOCKED"),
     PRIME("PRIME");
 
     private final String title;
 
-    States(String title) {
+    Status(String title) {
         this.title = title;
     }
 
