@@ -1,10 +1,7 @@
 package by.vadarod.nikolatyk_v.service;
 
 import by.vadarod.nikolatyk_v.config.HibernateJavaConfig;
-import by.vadarod.nikolatyk_v.entity.Building;
-import by.vadarod.nikolatyk_v.entity.Client;
-import by.vadarod.nikolatyk_v.entity.SportServ;
-import by.vadarod.nikolatyk_v.entity.ClientStatus;
+import by.vadarod.nikolatyk_v.entity.*;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -25,6 +22,9 @@ public class SportCenterService {
 
     public List<Client>  getAllClient(){
         return clientService.getAllClient();
+    }
+    public List<PrimeClient>  getAllPrimeClient(){
+        return clientService.getAllPrimeClient();
     }
 
     public Client getClientById(Long id){
@@ -68,6 +68,9 @@ public class SportCenterService {
 
     public Building addBuildingWithDetach(Long id, String newNumber){
         return buildingService.addBuildingWithDetach(id, newNumber);
+    }
+    public List<Building> getAllSmallBuildings(){
+        return buildingService.getAllSmallBuildings();
     }
 
 }

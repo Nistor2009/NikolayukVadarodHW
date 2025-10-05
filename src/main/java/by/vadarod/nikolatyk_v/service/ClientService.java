@@ -1,7 +1,9 @@
 package by.vadarod.nikolatyk_v.service;
 
+import by.vadarod.nikolatyk_v.entity.Address;
 import by.vadarod.nikolatyk_v.entity.Client;
 import by.vadarod.nikolatyk_v.entity.ClientStatus;
+import by.vadarod.nikolatyk_v.entity.PrimeClient;
 import by.vadarod.nikolatyk_v.repository.ClientRepository;
 import by.vadarod.nikolatyk_v.repository.ClientRepositoryImpl;
 import org.hibernate.SessionFactory;
@@ -31,6 +33,11 @@ public class ClientService {
         List<Client> clients = clientRepository.getAllClient();
         return clients;
     }
+    public List<PrimeClient> getAllPrimeClient() {
+        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
+        List<PrimeClient> clients = clientRepository.getAllPrimeClient();
+        return clients;
+    }
 
     public Client deleteClientById(Long id) {
         ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
@@ -40,15 +47,20 @@ public class ClientService {
 
     public void addFiveClient() {
         Client client;
-            client = new Client(null, "Вася", "Пупкин", 23, "+375292223344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 100.15);
+            client = new Client(null, "Вася", "Пупкин", 23, "+375292223344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 100.15
+                            , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Петя", "Васечкин", 23, "+375293333344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 150.20);
+            client = new Client(null, "Петя", "Васечкин", 23, "+375293333344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 150.20
+                            , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Ваня", "Петкин", 23, "+375294443344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 57.50);
+            client = new Client(null, "Ваня", "Петкин", 23, "+375294443344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 57.50
+                    , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Дональд", "Ванечкин", 23, "+375295553344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 250.0);
+            client = new Client(null, "Дональд", "Ванечкин", 23, "+375295553344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 250.0
+                    , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Илон", "Далькин", 23, "+375296663344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 245.90);
+            client = new Client(null, "Илон", "Далькин", 23, "+375296663344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 245.90
+                    , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
     }
 

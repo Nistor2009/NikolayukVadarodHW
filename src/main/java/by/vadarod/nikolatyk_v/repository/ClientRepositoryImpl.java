@@ -3,6 +3,7 @@ package by.vadarod.nikolatyk_v.repository;
 import by.vadarod.nikolatyk_v.config.HibernateConnection;
 import by.vadarod.nikolatyk_v.entity.Client;
 import by.vadarod.nikolatyk_v.entity.ClientStatus;
+import by.vadarod.nikolatyk_v.entity.PrimeClient;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
@@ -79,5 +80,18 @@ public class ClientRepositoryImpl implements ClientRepository {
         }
         entityManager.close();
         return getClientById(id);
+    }
+
+    @Override
+    public List<PrimeClient> getAllPrimeClient() {
+        Session session = sessionFactory.openSession();
+        List<PrimeClient> clients;
+        try {
+            clients = session.createQuery("select s FROM PrimeClient s").getResultList();
+            session.close();
+        } catch (NoResultException e) {
+            clients = List.of();
+        }
+        return clients;
     }
 }

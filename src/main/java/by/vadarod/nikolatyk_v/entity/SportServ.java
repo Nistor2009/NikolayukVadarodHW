@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode(of = "id")
 public class SportServ {
     @Id
     @SequenceGenerator(name = "serviceSequence", sequenceName = "s_service", allocationSize = 1, schema = "work")

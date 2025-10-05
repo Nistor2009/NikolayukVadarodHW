@@ -1,8 +1,6 @@
 package by.vadarod.nikolatyk_v.config;
 
-import by.vadarod.nikolatyk_v.entity.Building;
-import by.vadarod.nikolatyk_v.entity.Client;
-import by.vadarod.nikolatyk_v.entity.SportServ;
+import by.vadarod.nikolatyk_v.entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -25,8 +23,10 @@ public class HibernateJavaConfig {
 
         configuration = new Configuration();
         configuration.addAnnotatedClass(Client.class);
+        configuration.addAnnotatedClass(PrimeClient.class);
         configuration.addAnnotatedClass(SportServ.class);
         configuration.addAnnotatedClass(Building.class);
+        configuration.addAnnotatedClass(SmallBuilding.class);
         serviceRegistryBuilder = new StandardServiceRegistryBuilder();
         serviceRegistryBuilder.applySettings(properties);
     }

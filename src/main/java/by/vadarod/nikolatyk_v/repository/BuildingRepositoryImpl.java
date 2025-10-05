@@ -1,10 +1,13 @@
 package by.vadarod.nikolatyk_v.repository;
 
 import by.vadarod.nikolatyk_v.entity.Building;
+import by.vadarod.nikolatyk_v.entity.PrimeClient;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 public class BuildingRepositoryImpl implements BuildingRepository{
     private final SessionFactory sessionFactory;
@@ -57,5 +60,18 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         session.getTransaction().commit();
         session.close();
         return building;
+    }
+
+    @Override
+    public List<Building> getAllSmallBuildings() {
+        Session session = sessionFactory.openSession();
+        List<Building> buildings;
+        try {
+            buildings = session.createQuery("select s FROM SmallBuilding s").getResultList();
+            session.close();
+        } catch (NoResultException e) {
+            buildings = List.of();
+        }
+        return buildings;
     }
 }
