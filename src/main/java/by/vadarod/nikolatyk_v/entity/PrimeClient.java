@@ -2,21 +2,22 @@ package by.vadarod.nikolatyk_v.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import java.util.Calendar;
 
 @Entity
-@Table(name = "client", schema = "work")
+@Table(name = "prime_client", schema = "work")
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
-public class Client {
+@Where(clause = "state = 'PRIME'")
+public class PrimeClient {
     @Id
-    @SequenceGenerator(name = "clientSequence", sequenceName = "s_client", allocationSize = 1, schema = "work")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientSequence")
+    @SequenceGenerator(name = "primeClientSequence", sequenceName = "s_prime_client", allocationSize = 1, schema = "work")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primeClientSequence")
     private Long id;
     private String name;
     private String surname;
@@ -29,5 +30,9 @@ public class Client {
     private double spentMoney;
     @Embedded
     private Address address;
-}
 
+    @Override
+    public String toString() {
+        return "Client(id = "+id+", name = "+name+", surname = "+surname+", state = "+state+")";
+    }
+}

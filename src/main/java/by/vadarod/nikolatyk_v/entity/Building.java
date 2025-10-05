@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode(of = "id")
 public class Building {
     @Id
     @SequenceGenerator(name = "buildingSequence", sequenceName = "s_building", allocationSize = 1, schema = "work")
