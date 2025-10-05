@@ -1,10 +1,8 @@
 package by.vadarod.nikolatyk_v.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -16,8 +14,11 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @Setter
+@Getter
 public class Client {
     @Id
+    @SequenceGenerator(name = "clientSequence", sequenceName = "s_client", allocationSize = 1, schema = "work")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientSequence")
     private Long id;
     private String name;
     private String surname;

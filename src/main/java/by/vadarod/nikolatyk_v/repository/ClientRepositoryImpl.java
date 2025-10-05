@@ -2,20 +2,28 @@ package by.vadarod.nikolatyk_v.repository;
 
 import by.vadarod.nikolatyk_v.config.HibernateConnection;
 import by.vadarod.nikolatyk_v.entity.Client;
-import by.vadarod.nikolatyk_v.entity.Status;
+import by.vadarod.nikolatyk_v.entity.ClientStatus;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
 public class ClientRepositoryImpl implements ClientRepository {
+    private final SessionFactory sessionFactory;
+
+    public ClientRepositoryImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     public Client addClient(Client client) {
-        EntityManager entityManager = HibernateConnection.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(client);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        Session session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        session.persist(client);
+        session.getTransaction().commit();
+        session.close();
         return client;
     }
 
@@ -33,16 +41,13 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     public Client getClientById(Long id) {
         Client client;
-        EntityManager entityManager = HibernateConnection.getEntityManager();
-
-        Query query = entityManager.createQuery("select s from Client s where s.id =:id");
-        query.setParameter("id", id);
+        Session session = sessionFactory.openSession();
         try {
-            client = (Client) query.getSingleResult();
+            client = session.get(Client.class, id);
         } catch (NoResultException e) {
             client = null;
         }
-        entityManager.close();
+        session.close();
         return client;
     }
 
@@ -61,7 +66,7 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Client updateClientState(Long id, Status state) {
+    public Client updateClientState(Long id, ClientStatus state) {
         EntityManager entityManager = HibernateConnection.getEntityManager();
         Client client = getClientById(id);
         if (client != null) {
@@ -73,6 +78,6 @@ public class ClientRepositoryImpl implements ClientRepository {
             entityManager.getTransaction().commit();
         }
         entityManager.close();
-        return client;
+        return getClientById(id);
     }
 }
