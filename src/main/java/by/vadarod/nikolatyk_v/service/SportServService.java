@@ -1,6 +1,5 @@
 package by.vadarod.nikolatyk_v.service;
 
-import by.vadarod.nikolatyk_v.entity.Building;
 import by.vadarod.nikolatyk_v.entity.SportServ;
 import by.vadarod.nikolatyk_v.repository.SportServRepository;
 import by.vadarod.nikolatyk_v.repository.SportServRepositoryImpl;
