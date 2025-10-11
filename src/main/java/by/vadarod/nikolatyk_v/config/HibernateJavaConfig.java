@@ -27,6 +27,8 @@ public class HibernateJavaConfig {
         configuration.addAnnotatedClass(SportServ.class);
         configuration.addAnnotatedClass(Building.class);
         configuration.addAnnotatedClass(SmallBuilding.class);
+        configuration.addAnnotatedClass(Visitor.class);
+        configuration.addAnnotatedClass(Employee.class);
         serviceRegistryBuilder = new StandardServiceRegistryBuilder();
         serviceRegistryBuilder.applySettings(properties);
     }

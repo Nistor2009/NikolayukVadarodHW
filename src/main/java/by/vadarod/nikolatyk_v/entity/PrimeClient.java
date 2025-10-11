@@ -13,7 +13,7 @@ import java.util.Calendar;
 @Getter
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
-@Where(clause = "state = 'PRIME'")
+@Where(clause = "status = 'PRIME'")
 public class PrimeClient {
     @Id
     @SequenceGenerator(name = "primeClientSequence", sequenceName = "s_prime_client", allocationSize = 1, schema = "work")
@@ -25,7 +25,7 @@ public class PrimeClient {
     private String phone;
     @Column(name = "last_visit")
     private Calendar lastVisit;
-    private String state;
+    private String status;
     @Column(name = "spent_money")
     private double spentMoney;
     @Embedded
@@ -33,6 +33,6 @@ public class PrimeClient {
 
     @Override
     public String toString() {
-        return "Client(id = "+id+", name = "+name+", surname = "+surname+", state = "+state+")";
+        return "Client(id = "+id+", name = "+name+", surname = "+surname+", status = "+status+")";
     }
 }

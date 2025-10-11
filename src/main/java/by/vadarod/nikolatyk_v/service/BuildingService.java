@@ -6,6 +6,7 @@ import by.vadarod.nikolatyk_v.repository.BuildingRepositoryImpl;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BuildingService {
     private final SessionFactory sessionFactory;
@@ -17,7 +18,7 @@ public class BuildingService {
         buildingRepository.addBuilding(building);
         return building;
     }
-    public Building getBuildingById(Long id){
+    public Optional<Building> getBuildingById(Long id){
         BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
         return buildingRepository.getBuildingById(id);
     }

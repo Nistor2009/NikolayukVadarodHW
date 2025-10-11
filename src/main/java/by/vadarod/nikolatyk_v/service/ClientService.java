@@ -47,19 +47,19 @@ public class ClientService {
 
     public void addFiveClient() {
         Client client;
-            client = new Client(null, "Вася", "Пупкин", 23, "+375292223344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 100.15
+            client = new Client(null, "Вася", "Пупкин", 23, "+375292223344"
                             , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Петя", "Васечкин", 23, "+375293333344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 150.20
+            client = new Client(null, "Петя", "Васечкин", 23, "+375293333344"
                             , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Ваня", "Петкин", 23, "+375294443344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 57.50
+            client = new Client(null, "Ваня", "Петкин", 23, "+375294443344"
                     , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Дональд", "Ванечкин", 23, "+375295553344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 250.0
+            client = new Client(null, "Дональд", "Ванечкин", 23, "+375295553344"
                     , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
-            client = new Client(null, "Илон", "Далькин", 23, "+375296663344", new GregorianCalendar(2025, 8, 28), ClientStatus.ACTIVE.toString(), 245.90
+            client = new Client(null, "Илон", "Далькин", 23, "+375296663344"
                     , new Address("Минск", "Гоголя", "4","1235513"));
             addClient(client);
     }
