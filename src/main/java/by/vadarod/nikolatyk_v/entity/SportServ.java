@@ -3,13 +3,15 @@ package by.vadarod.nikolatyk_v.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "service", schema = "work")
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode(of = "id")
+@AllArgsConstructor
 public class SportServ {
     @Id
     @SequenceGenerator(name = "serviceSequence", sequenceName = "s_service", allocationSize = 1, schema = "work")
@@ -18,10 +20,9 @@ public class SportServ {
     @Column(length = 1000)
     private String name;
     private double price;
-
-    public SportServ(Long id, String name, double price){
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
+    @OneToMany
+    @JoinColumn(name = "building_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Building> buildings;
 }

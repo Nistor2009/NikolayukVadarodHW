@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "visitor", schema = "work")
@@ -11,7 +12,6 @@ import java.util.Calendar;
 @Setter
 @Getter
 @ToString
-@AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "client_id")
 public class Visitor extends Client{
     private String status;
@@ -21,4 +21,14 @@ public class Visitor extends Client{
     private double spentMoney;
     @Column(name = "first_visit")
     private Calendar firstVisit;
+    @OneToMany
+    @JoinColumn(name = "visits_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Visit> visits;
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Record> records;
 }

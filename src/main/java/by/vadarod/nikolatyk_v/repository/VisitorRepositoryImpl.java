@@ -19,14 +19,16 @@ public class VisitorRepositoryImpl implements VisitorRepository{
         this.sessionFactory = sessionFactory;
     }
     @Override
-    public Visitor add(Visitor visitor) {
+    public Long add(Visitor visitor) {
+        Long id;
         Session session = sessionFactory.openSession();;
-        session.detach(visitor);    
+        session.detach(visitor);
         session.getTransaction().begin();
-        session.merge(visitor);
+        session.persist(visitor);
         session.getTransaction().commit();
+        id = visitor.getId();
         session.close();
-        return visitor;
+        return id;
     }
 
     @Override

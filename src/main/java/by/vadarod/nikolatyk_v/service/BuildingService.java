@@ -13,10 +13,9 @@ public class BuildingService {
     public BuildingService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    public Building addBuilding(Building building) {
+    public Long addBuilding(Building building) {
         BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
-        buildingRepository.addBuilding(building);
-        return building;
+        return buildingRepository.addBuilding(building);
     }
     public Optional<Building> getBuildingById(Long id){
         BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
