@@ -67,13 +67,13 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Client updateClientState(Long id, ClientStatus state) {
+    public Client updateClientState(Long id, ClientStatus status) {
         EntityManager entityManager = HibernateConnection.getEntityManager();
         Client client = getClientById(id);
         if (client != null) {
             entityManager.getTransaction().begin();
-            Query query = entityManager.createQuery("update Client c set c.state = :state where c.id = :id");
-            query.setParameter("state", state.toString());
+            Query query = entityManager.createQuery("update Client c set c.status = :status where c.id = :id");
+            query.setParameter("status", status.toString());
             query.setParameter("id", id);
             query.executeUpdate();
             entityManager.getTransaction().commit();

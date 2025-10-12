@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BuildingRepositoryImpl implements BuildingRepository{
     private final SessionFactory sessionFactory;
@@ -26,7 +27,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
     }
 
     @Override
-    public Building getBuildingById(Long id) {
+    public Optional<Building> getBuildingById(Long id) {
         Building building;
         Session session = sessionFactory.openSession();
         try {
@@ -35,7 +36,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             building = null;
         }
         session.close();
-        return building;
+        return Optional.ofNullable(building);
     }
     @Override
     public Building addBuildingWithDetach(Long id, String newNumber) {

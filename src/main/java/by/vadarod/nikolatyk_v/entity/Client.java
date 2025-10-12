@@ -13,6 +13,7 @@ import java.util.Calendar;
 @ToString
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Client {
     @Id
     @SequenceGenerator(name = "clientSequence", sequenceName = "s_client", allocationSize = 1, schema = "work")
@@ -22,11 +23,6 @@ public class Client {
     private String surname;
     private int age;
     private String phone;
-    @Column(name = "last_visit")
-    private Calendar lastVisit;
-    private String state;
-    @Column(name = "spent_money")
-    private double spentMoney;
     @Embedded
     private Address address;
 }
