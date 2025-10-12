@@ -3,6 +3,7 @@ package by.vadarod.nikolatyk_v.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,5 +25,5 @@ public class SportServ {
     @JoinColumn(name = "building_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private List<Building> buildings;
+    private List<Building> buildings = new ArrayList<>();
 }

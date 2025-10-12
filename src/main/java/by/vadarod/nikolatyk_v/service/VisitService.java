@@ -6,12 +6,11 @@ import by.vadarod.nikolatyk_v.repository.VisitRepositoryImpl;
 import org.hibernate.SessionFactory;
 
 public class VisitService {
-    private final SessionFactory sessionFactory;
+    private final VisitRepository visitRepository;
     public VisitService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        visitRepository = new VisitRepositoryImpl(sessionFactory);
     }
     public Long addVisit(Visit visit){
-        VisitRepository visitRepository = new VisitRepositoryImpl(sessionFactory);
         return visitRepository.addVisit(visit);
     }
 }

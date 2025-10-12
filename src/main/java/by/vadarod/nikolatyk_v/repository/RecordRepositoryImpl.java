@@ -18,13 +18,6 @@ public class RecordRepositoryImpl implements RecordRepository{
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         session.persist(record);
-        session.flush();
-        Building building = session.find(Building.class, record.getBuildingId());
-        building.getRecords().add(record);
-        session.merge(building);
-        Visitor visitor = session.find(Visitor.class, record.getClientId());
-        visitor.getRecords().add(record);
-        session.merge(visitor);
         session.getTransaction().commit();
         id = record.getId();
         session.close();

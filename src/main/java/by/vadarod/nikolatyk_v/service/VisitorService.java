@@ -9,22 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class VisitorService {
-    private final SessionFactory sessionFactory;
+    private final VisitorRepository visitorRepository;
     public VisitorService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        visitorRepository = new VisitorRepositoryImpl(sessionFactory);
     }
     public Long add(Visitor visitor) {
-        VisitorRepository visitorRepository = new VisitorRepositoryImpl(sessionFactory);
         return  visitorRepository.add(visitor);
     }
 
     public List<Visitor> findALl() {
-        VisitorRepository visitorRepository = new VisitorRepositoryImpl(sessionFactory);
         return visitorRepository.findALl();
     }
 
     public Optional<Visitor> getById(Long id) {
-        VisitorRepository visitorRepository = new VisitorRepositoryImpl(sessionFactory);
         return visitorRepository.getById(id);
     }
 }

@@ -93,6 +93,8 @@ public class SportCenterService {
         return buildingService.getAllSmallBuildings();
     }
 
+    public Building deleteBuildingById(Long id){return buildingService.deleteBuildingById(id);}
+
     /*
     Visitor
      */

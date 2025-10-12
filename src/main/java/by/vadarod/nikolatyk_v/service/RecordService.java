@@ -6,12 +6,11 @@ import by.vadarod.nikolatyk_v.repository.RecordRepositoryImpl;
 import org.hibernate.SessionFactory;
 
 public class RecordService {
-    private final SessionFactory sessionFactory;
+    private final RecordRepository recordRepository;
     public RecordService(SessionFactory sessionFactory){
-        this.sessionFactory = sessionFactory;
+        recordRepository = new RecordRepositoryImpl(sessionFactory);
     }
     public Long addRecord(Record record){
-        RecordRepository recordRepository = new RecordRepositoryImpl(sessionFactory);
         return recordRepository.addRecord(record);
     }
 }

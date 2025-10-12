@@ -3,6 +3,7 @@ package by.vadarod.nikolatyk_v.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,9 +26,9 @@ public class Building {
     private String status;
     @Column(name = "price_per_hour")
     private double pricePerHour;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "building_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private List<Record> records;
+    private List<Record> records = new ArrayList<>();
 }

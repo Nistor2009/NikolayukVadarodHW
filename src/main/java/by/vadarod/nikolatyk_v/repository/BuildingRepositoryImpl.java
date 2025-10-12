@@ -1,7 +1,6 @@
 package by.vadarod.nikolatyk_v.repository;
 
 import by.vadarod.nikolatyk_v.entity.Building;
-import by.vadarod.nikolatyk_v.entity.Record;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
@@ -76,5 +75,16 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             buildings = List.of();
         }
         return buildings;
+    }
+
+    @Override
+    public Building deleteBuildingById(Long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Building building = session.get(Building.class, id);
+        session.remove(building);
+        session.getTransaction().commit();
+        session.close();
+        return building;
     }
 }
