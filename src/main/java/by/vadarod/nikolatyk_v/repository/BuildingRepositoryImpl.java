@@ -1,7 +1,6 @@
 package by.vadarod.nikolatyk_v.repository;
 
 import by.vadarod.nikolatyk_v.entity.Building;
-import by.vadarod.nikolatyk_v.entity.PrimeClient;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
@@ -17,13 +16,15 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         this.sessionFactory = sessionFactory;
     }
     @Override
-    public Building addBuilding(Building building) {
+    public Long addBuilding(Building building) {
+        Long id;
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         session.persist(building);
         session.getTransaction().commit();
+        id = building.getId();
         session.close();
-        return building;
+        return id;
     }
 
     @Override
@@ -74,5 +75,16 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             buildings = List.of();
         }
         return buildings;
+    }
+
+    @Override
+    public Building deleteBuildingById(Long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Building building = session.get(Building.class, id);
+        session.remove(building);
+        session.getTransaction().commit();
+        session.close();
+        return building;
     }
 }

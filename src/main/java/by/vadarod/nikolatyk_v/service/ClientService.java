@@ -12,35 +12,30 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ClientService {
-    private final SessionFactory sessionFactory;
+    private final ClientRepository clientRepository;
     public ClientService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        clientRepository = new ClientRepositoryImpl(sessionFactory);
     }
 
     public Client addClient(Client client) {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         clientRepository.addClient(client);
         return client;
     }
     public Client getClientById(Long id) {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         Client client = clientRepository.getClientById(id);
         return client;
     }
 
     public List<Client> getAllClient() {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         List<Client> clients = clientRepository.getAllClient();
         return clients;
     }
     public List<PrimeClient> getAllPrimeClient() {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         List<PrimeClient> clients = clientRepository.getAllPrimeClient();
         return clients;
     }
 
     public Client deleteClientById(Long id) {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         Client client = clientRepository.deleteClientById(id);
         return client;
     }
@@ -65,7 +60,6 @@ public class ClientService {
     }
 
     public Client updateClientState(Long id, ClientStatus state){
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         Client client = clientRepository.updateClientState(id, state);
         return client;
     }
