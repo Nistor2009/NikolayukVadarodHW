@@ -12,15 +12,16 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
 @PrimaryKeyJoinColumn(name = "client_id")
 public class Visitor extends Client{
     private String status;
     @Column(name = "last_visit")
+    @ToString.Exclude
     private Calendar lastVisit;
     @Column(name = "spent_money")
     private double spentMoney;
     @Column(name = "first_visit")
+    @ToString.Exclude
     private Calendar firstVisit;
     @OneToMany
     @JoinColumn(name = "visits_id")
@@ -32,4 +33,9 @@ public class Visitor extends Client{
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Record> records = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

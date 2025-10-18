@@ -25,4 +25,14 @@ public class EmployeeService {
     public Optional<Employee> getById(Long id) {
         return employeeRepository.getById(id);
     }
+    public Optional<Employee> getHighlyPaid(){
+        return employeeRepository.getHighlyPaidEmployee();
+    }
+    public Optional<Employee> getLowerPaidEmployee() {
+        return employeeRepository.getLowerPaidEmployee();
+    }
+
+    public double getEmployeeExpenses() {
+        return employeeRepository.getEmployeeExpenses();
+    }
 }

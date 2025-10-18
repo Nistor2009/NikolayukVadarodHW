@@ -1,15 +1,13 @@
 package by.vadarod.nikolatyk_v.service;
 
-import by.vadarod.nikolatyk_v.entity.Address;
-import by.vadarod.nikolatyk_v.entity.Client;
-import by.vadarod.nikolatyk_v.entity.ClientStatus;
-import by.vadarod.nikolatyk_v.entity.PrimeClient;
+import by.vadarod.nikolatyk_v.entity.*;
 import by.vadarod.nikolatyk_v.repository.ClientRepository;
 import by.vadarod.nikolatyk_v.repository.ClientRepositoryImpl;
 import org.hibernate.SessionFactory;
 
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientService {
     private final ClientRepository clientRepository;
@@ -62,5 +60,8 @@ public class ClientService {
     public Client updateClientState(Long id, ClientStatus state){
         Client client = clientRepository.updateClientState(id, state);
         return client;
+    }
+    public List<Client> getClientByName(String name){
+        return clientRepository.getClientByName(name);
     }
 }

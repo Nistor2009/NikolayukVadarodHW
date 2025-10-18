@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class BuildingRepositoryImpl implements BuildingRepository{
@@ -86,5 +87,31 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         session.getTransaction().commit();
         session.close();
         return building;
+    }
+
+    @Override
+    public double getPriceForPerson(Long id) {
+        double pricePerHour;
+        int maxPeopleCount;
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select b.pricePerHour as pricePerHour, b.maxPeopleCount as maxPeopleCount from Building b where b.id = :id");
+        query.setParameter("id", id);
+        try {
+            Object[] result = (Object[]) query.getSingleResult();
+            try {
+                pricePerHour = (Double) result[0];
+            }catch (NullPointerException e){
+                throw new RuntimeException("No pricePerHour for building " + id);
+            }
+            try {
+                maxPeopleCount = (Integer)result[1];
+            }catch (NullPointerException e){
+                throw new RuntimeException("No max_people_count for building " + id);
+            }
+        }catch (NoResultException e){
+            throw new RuntimeException("No such building " + id);
+        }
+        session.close();
+        return pricePerHour/maxPeopleCount;
     }
 }

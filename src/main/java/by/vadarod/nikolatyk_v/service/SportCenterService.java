@@ -59,6 +59,8 @@ public class SportCenterService {
         return clientService.updateClientState(id, state);
     }
 
+    public List<Client> getClientByName(String name){
+        return clientService.getClientByName(name);}
     /*
         SportServ
      */
@@ -95,6 +97,10 @@ public class SportCenterService {
 
     public Building deleteBuildingById(Long id){return buildingService.deleteBuildingById(id);}
 
+    public double getPriceForPerson(Long id) {
+        return buildingService.getPriceForPerson(id);
+    }
+
     /*
     Visitor
      */
@@ -123,6 +129,16 @@ public class SportCenterService {
 
     public Optional<Employee> getEmployeeById(Long id) {
         return employeeService.getById(id);
+    }
+
+    public Optional<Employee> getHighlyPaidEmployee(){
+        return employeeService.getHighlyPaid();}
+
+    public Optional<Employee> getLowerPaidEmployee() {
+        return employeeService.getLowerPaidEmployee();
+    }
+    public double getEmployeeExpenses(){
+        return employeeService.getEmployeeExpenses();
     }
 
     /*

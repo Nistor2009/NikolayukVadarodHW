@@ -32,7 +32,7 @@ public class VisitorRepositoryImpl implements VisitorRepository{
         Session session = sessionFactory.openSession();
         List<Visitor> visitors;
         try {
-            // вот такая шляпа с join fetch позволяет делать только один запрос в базу. Но я не знаю, всегда ли такая штука работает правильно. В моём случае вроде норм) 
+            // вот такая шляпа с join fetch позволяет делать только один запрос в базу. Но я не знаю, всегда ли такая штука работает правильно. В моём случае вроде норм)
             visitors = session.createQuery("select v FROM Visitor v join fetch v.records r").getResultList();
             session.close();
         } catch (NoResultException e) {
