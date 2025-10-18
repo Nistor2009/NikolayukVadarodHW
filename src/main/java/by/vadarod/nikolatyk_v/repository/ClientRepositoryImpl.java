@@ -10,7 +10,9 @@ import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientRepositoryImpl implements ClientRepository {
     private final SessionFactory sessionFactory;
@@ -92,6 +94,21 @@ public class ClientRepositoryImpl implements ClientRepository {
         } catch (NoResultException e) {
             clients = List.of();
         }
+        return clients;
+    }
+
+    @Override
+    public List<Client> getClientByName(String name) {
+        List<Client> clients = new ArrayList<>();
+        Session session = sessionFactory.openSession();
+        try {
+            Query query = session.createQuery("select c FROM Client c where c.name = :name");
+            query.setParameter("name", name);
+            clients = (List<Client>)query.getResultList();
+        } catch (NoResultException e) {
+            clients = List.of();
+        }
+        session.close();
         return clients;
     }
 }

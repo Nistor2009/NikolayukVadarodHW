@@ -9,23 +9,30 @@ import java.util.List;
 import java.util.Optional;
 
 public class EmployeeService {
-    private final SessionFactory sessionFactory;
+    private final EmployeeRepository employeeRepository;
     public EmployeeService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        employeeRepository = new EmployeeRepositoryImpl(sessionFactory);
     }
     public Employee add(Employee employee) {
-        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl(sessionFactory);
         employeeRepository.add(employee);
         return employee;
     }
 
     public List<Employee> findALl() {
-        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl(sessionFactory);
         return employeeRepository.findALl();
     }
 
     public Optional<Employee> getById(Long id) {
-        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl(sessionFactory);
         return employeeRepository.getById(id);
+    }
+    public Optional<Employee> getHighlyPaid(){
+        return employeeRepository.getHighlyPaidEmployee();
+    }
+    public Optional<Employee> getLowerPaidEmployee() {
+        return employeeRepository.getLowerPaidEmployee();
+    }
+
+    public double getEmployeeExpenses() {
+        return employeeRepository.getEmployeeExpenses();
     }
 }

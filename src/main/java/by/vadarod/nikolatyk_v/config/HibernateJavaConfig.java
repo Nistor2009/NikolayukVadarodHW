@@ -1,6 +1,7 @@
 package by.vadarod.nikolatyk_v.config;
 
 import by.vadarod.nikolatyk_v.entity.*;
+import by.vadarod.nikolatyk_v.entity.Record;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -29,6 +30,8 @@ public class HibernateJavaConfig {
         configuration.addAnnotatedClass(SmallBuilding.class);
         configuration.addAnnotatedClass(Visitor.class);
         configuration.addAnnotatedClass(Employee.class);
+        configuration.addAnnotatedClass(Visit.class);
+        configuration.addAnnotatedClass(Record.class);
         serviceRegistryBuilder = new StandardServiceRegistryBuilder();
         serviceRegistryBuilder.applySettings(properties);
     }

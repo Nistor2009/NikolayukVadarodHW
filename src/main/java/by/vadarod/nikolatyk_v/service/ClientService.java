@@ -1,46 +1,39 @@
 package by.vadarod.nikolatyk_v.service;
 
-import by.vadarod.nikolatyk_v.entity.Address;
-import by.vadarod.nikolatyk_v.entity.Client;
-import by.vadarod.nikolatyk_v.entity.ClientStatus;
-import by.vadarod.nikolatyk_v.entity.PrimeClient;
+import by.vadarod.nikolatyk_v.entity.*;
 import by.vadarod.nikolatyk_v.repository.ClientRepository;
 import by.vadarod.nikolatyk_v.repository.ClientRepositoryImpl;
 import org.hibernate.SessionFactory;
 
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientService {
-    private final SessionFactory sessionFactory;
+    private final ClientRepository clientRepository;
     public ClientService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        clientRepository = new ClientRepositoryImpl(sessionFactory);
     }
 
     public Client addClient(Client client) {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         clientRepository.addClient(client);
         return client;
     }
     public Client getClientById(Long id) {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         Client client = clientRepository.getClientById(id);
         return client;
     }
 
     public List<Client> getAllClient() {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         List<Client> clients = clientRepository.getAllClient();
         return clients;
     }
     public List<PrimeClient> getAllPrimeClient() {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         List<PrimeClient> clients = clientRepository.getAllPrimeClient();
         return clients;
     }
 
     public Client deleteClientById(Long id) {
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         Client client = clientRepository.deleteClientById(id);
         return client;
     }
@@ -65,8 +58,10 @@ public class ClientService {
     }
 
     public Client updateClientState(Long id, ClientStatus state){
-        ClientRepository clientRepository = new ClientRepositoryImpl(sessionFactory);
         Client client = clientRepository.updateClientState(id, state);
         return client;
+    }
+    public List<Client> getClientByName(String name){
+        return clientRepository.getClientByName(name);
     }
 }

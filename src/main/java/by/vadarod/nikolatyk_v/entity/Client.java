@@ -24,6 +24,7 @@ public class Client {
     private int age;
     private String phone;
     @Embedded
+    @ToString.Exclude
     private Address address;
 }
 

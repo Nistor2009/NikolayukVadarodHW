@@ -1,13 +1,13 @@
 package by.vadarod.nikolatyk_v.repository;
 
 import by.vadarod.nikolatyk_v.entity.Building;
-import by.vadarod.nikolatyk_v.entity.PrimeClient;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class BuildingRepositoryImpl implements BuildingRepository{
@@ -17,13 +17,15 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         this.sessionFactory = sessionFactory;
     }
     @Override
-    public Building addBuilding(Building building) {
+    public Long addBuilding(Building building) {
+        Long id;
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         session.persist(building);
         session.getTransaction().commit();
+        id = building.getId();
         session.close();
-        return building;
+        return id;
     }
 
     @Override
@@ -74,5 +76,42 @@ public class BuildingRepositoryImpl implements BuildingRepository{
             buildings = List.of();
         }
         return buildings;
+    }
+
+    @Override
+    public Building deleteBuildingById(Long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Building building = session.get(Building.class, id);
+        session.remove(building);
+        session.getTransaction().commit();
+        session.close();
+        return building;
+    }
+
+    @Override
+    public double getPriceForPerson(Long id) {
+        double pricePerHour;
+        int maxPeopleCount;
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select b.pricePerHour as pricePerHour, b.maxPeopleCount as maxPeopleCount from Building b where b.id = :id");
+        query.setParameter("id", id);
+        try {
+            Object[] result = (Object[]) query.getSingleResult();
+            try {
+                pricePerHour = (Double) result[0];
+            }catch (NullPointerException e){
+                throw new RuntimeException("No pricePerHour for building " + id);
+            }
+            try {
+                maxPeopleCount = (Integer)result[1];
+            }catch (NullPointerException e){
+                throw new RuntimeException("No max_people_count for building " + id);
+            }
+        }catch (NoResultException e){
+            throw new RuntimeException("No such building " + id);
+        }
+        session.close();
+        return pricePerHour/maxPeopleCount;
     }
 }
