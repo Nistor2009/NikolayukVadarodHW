@@ -1,8 +1,10 @@
 package by.vadarod.nikolatyk_v.repository;
 
+import by.vadarod.nikolatyk_v.entity.Client;
 import by.vadarod.nikolatyk_v.entity.Employee;
 import by.vadarod.nikolatyk_v.entity.Visitor;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -50,5 +52,44 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
         }
         session.close();
         return Optional.ofNullable(employee);
+    }
+
+    @Override
+    public Optional<Employee> getHighlyPaidEmployee() {
+        Employee employee;
+        Session session = sessionFactory.openSession();
+        try {
+            Query query = session.createQuery("select e FROM Employee e order by salary desc", Client.class);
+            query.setMaxResults(1);
+            employee = (Employee)query.getSingleResult();
+        } catch (NoResultException e) {
+            employee = null;
+        }
+        session.close();
+        return Optional.ofNullable(employee);
+    }
+
+    @Override
+    public Optional<Employee> getLowerPaidEmployee() {
+        Employee employee;
+        Session session = sessionFactory.openSession();
+        try {
+            Query query = session.createQuery("select e FROM Employee e order by salary");
+            query.setMaxResults(1);
+            employee = (Employee)query.getSingleResult();
+        } catch (NoResultException e) {
+            employee = null;
+        }
+        session.close();
+        return Optional.ofNullable(employee);
+    }
+
+    @Override
+    public double getEmployeeExpenses() {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select sum(e.salary) from Employee e");
+        double result = (Double)query.getSingleResult();
+        session.close();
+        return result;
     }
 }

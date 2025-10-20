@@ -32,4 +32,8 @@ public class BuildingService {
     public Building deleteBuildingById(Long id){
         return buildingRepository.deleteBuildingById(id);
     }
+
+    public double getPriceForPerson(Long id) {
+        return buildingRepository.getPriceForPerson(id);
+    }
 }

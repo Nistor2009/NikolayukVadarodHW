@@ -12,4 +12,5 @@ public interface BuildingRepository {
     public Building addBuildingWithDetach(Long id, String newNumber);
     public List<Building> getAllSmallBuildings();
     public Building deleteBuildingById(Long id);
+    public double getPriceForPerson(Long id);
 }

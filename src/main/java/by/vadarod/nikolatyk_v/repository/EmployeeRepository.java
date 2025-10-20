@@ -9,4 +9,7 @@ public interface EmployeeRepository {
     public Employee add(Employee employee);
     public List<Employee> findALl();
     public Optional<Employee> getById(Long id);
+    public Optional<Employee> getHighlyPaidEmployee();
+    public Optional<Employee> getLowerPaidEmployee();
+    public double getEmployeeExpenses();
 }
