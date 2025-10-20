@@ -2,10 +2,12 @@ package by.vadarod.nikolatyk_v.service;
 
 import by.vadarod.nikolatyk_v.config.HibernateJavaConfig;
 import by.vadarod.nikolatyk_v.entity.*;
-import by.vadarod.nikolatyk_v.repository.VisitorRepository;
-import by.vadarod.nikolatyk_v.repository.VisitorRepositoryImpl;
+import by.vadarod.nikolatyk_v.entity.Record;
 import org.hibernate.SessionFactory;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -19,6 +21,8 @@ public class SportCenterService {
     private final BuildingService buildingService;
     private final VisitorService visitorService;
     private final EmployeeService employeeService;
+    private final VisitService visitService;
+    private final RecordService recordService;
 
     public SportCenterService() {
         this.sessionFactory = HibernateJavaConfig.getSessionFactory();
@@ -27,6 +31,8 @@ public class SportCenterService {
         buildingService = new BuildingService(sessionFactory);
         visitorService = new VisitorService(sessionFactory);
         employeeService = new EmployeeService(sessionFactory);
+        visitService = new VisitService(sessionFactory);
+        recordService = new RecordService(sessionFactory);
     }
 
     public List<Client> getAllClient() {
@@ -67,7 +73,7 @@ public class SportCenterService {
     /*
         Building
      */
-    public Building addBuilding(Building building) {
+    public Long addBuilding(Building building) {
         return buildingService.addBuilding(building);
     }
 
@@ -87,10 +93,12 @@ public class SportCenterService {
         return buildingService.getAllSmallBuildings();
     }
 
+    public Building deleteBuildingById(Long id){return buildingService.deleteBuildingById(id);}
+
     /*
     Visitor
      */
-    public Visitor addVisitor(Visitor visitor) {
+    public Long addVisitor(Visitor visitor) {
         return visitorService.add(visitor);
     }
 
@@ -161,6 +169,46 @@ public class SportCenterService {
         employee.setName("Леопольд");
         employee.setSurname("Арнольдов");
         addEmployee(employee);
+    }
+
+    public void fillRecordAndVisitTables(){
+        Long visitorId;
+        Long buildingId;
+        //Создаем помещение
+        Building building = new Building();
+        building.setName("room 1");
+        building.setStatus(BuildingStatus.ACTIVE.toString());
+        building.setIdentNumber("13");
+        building.setMaxPeopleCount(25);
+        building.setPricePerHour(150.5);
+        buildingId = buildingService.addBuilding(building);
+        //Создаем клиента
+        Visitor visitor = new Visitor();
+        visitor.setName("Галя");
+        visitor.setSurname("Куклакова");
+        visitor.setAge(56);
+        visitor.setStatus(ClientStatus.PRIME.toString());
+        visitor.setPhone("+375448945214");
+        visitorId = visitorService.add(visitor);
+        //Делаем записи
+        Record record = new Record();
+        record.setBuildingId(buildingId);
+        record.setClientId(visitorId);
+        record.setDate(LocalDate.of(2025, Month.JUNE,20));
+        record.setTime(LocalTime.of(12,0));
+        recordService.addRecord(record);
+        record = new Record();
+        record.setBuildingId(buildingId);
+        record.setClientId(visitorId);
+        record.setDate(LocalDate.of(2025, Month.JUNE,21));
+        record.setTime(LocalTime.of(11,0));
+        recordService.addRecord(record);
+        record = new Record();
+        record.setBuildingId(buildingId);
+        record.setClientId(visitorId);
+        record.setDate(LocalDate.of(2025, Month.JUNE,22));
+        record.setTime(LocalTime.of(17,30));
+        recordService.addRecord(record);
     }
 
 }

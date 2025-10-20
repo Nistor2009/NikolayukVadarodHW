@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VisitorRepository {
-    public Visitor add(Visitor visitor);
+    public Long add(Visitor visitor);
     public List<Visitor> findALl();
     public Optional<Visitor> getById(Long id);
 }

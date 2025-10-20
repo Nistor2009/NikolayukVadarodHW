@@ -6,18 +6,16 @@ import by.vadarod.nikolatyk_v.repository.SportServRepositoryImpl;
 import org.hibernate.SessionFactory;
 
 public class SportServService {
-    private final SessionFactory sessionFactory;
+    private final SportServRepository sportServRepository;
     public SportServService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        sportServRepository = new SportServRepositoryImpl(sessionFactory);
     }
     public SportServ addSportServ(SportServ sportServ) {
-        SportServRepository sportServRepository = new SportServRepositoryImpl(sessionFactory);
         sportServRepository.addSportServ(sportServ);
         return sportServ;
     }
 
     public SportServ getSportServByName(String name) {
-        SportServRepository sportServRepository = new SportServRepositoryImpl(sessionFactory);
         return sportServRepository.getSportServByName(name);
     }
 }

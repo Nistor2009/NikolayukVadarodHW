@@ -9,30 +9,27 @@ import java.util.List;
 import java.util.Optional;
 
 public class BuildingService {
-    private final SessionFactory sessionFactory;
+    private final BuildingRepository buildingRepository;
     public BuildingService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        buildingRepository = new BuildingRepositoryImpl(sessionFactory);
     }
-    public Building addBuilding(Building building) {
-        BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
-        buildingRepository.addBuilding(building);
-        return building;
+    public Long addBuilding(Building building) {
+        return buildingRepository.addBuilding(building);
     }
     public Optional<Building> getBuildingById(Long id){
-        BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
         return buildingRepository.getBuildingById(id);
     }
 
     public Building updatePricePerHour(Long id, double newPrice){
-        BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
         return buildingRepository.updatePricePerHour(id, newPrice);
     }
     public Building addBuildingWithDetach(Long id, String newNumber) {
-        BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
         return buildingRepository.addBuildingWithDetach(id, newNumber);
     }
     public List<Building> getAllSmallBuildings(){
-        BuildingRepository buildingRepository = new BuildingRepositoryImpl(sessionFactory);
         return buildingRepository.getAllSmallBuildings();
+    }
+    public Building deleteBuildingById(Long id){
+        return buildingRepository.deleteBuildingById(id);
     }
 }
