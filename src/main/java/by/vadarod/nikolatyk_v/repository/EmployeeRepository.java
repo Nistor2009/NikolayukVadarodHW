@@ -12,4 +12,5 @@ public interface EmployeeRepository {
     public Optional<Employee> getHighlyPaidEmployee();
     public Optional<Employee> getLowerPaidEmployee();
     public double getEmployeeExpenses();
+    public List<Employee> getAllCriteria();
 }

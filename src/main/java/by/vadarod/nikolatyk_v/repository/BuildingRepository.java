@@ -13,4 +13,6 @@ public interface BuildingRepository {
     public List<Building> getAllSmallBuildings();
     public Building deleteBuildingById(Long id);
     public double getPriceForPerson(Long id);
+    public int getAllPeopleCriteria();
+    public List<Building> findOlderFiftyCriteria();
 }

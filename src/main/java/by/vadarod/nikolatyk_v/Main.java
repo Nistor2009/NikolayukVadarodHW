@@ -7,10 +7,10 @@ import java.util.NoSuchElementException;
 public class Main {
     public static void main(String[] args) throws Exception {
         SportCenterService service = new SportCenterService();
-        System.out.println(service.getClientByName("Вася"));
-        System.out.println(service.getHighlyPaidEmployee().orElseThrow(()->new NoSuchElementException("No any employee")));
-        System.out.println(service.getLowerPaidEmployee().orElseThrow(()->new NoSuchElementException("No any employee")));
-        System.out.println("Expenses = " + service.getEmployeeExpenses());
-        System.out.println("Price = " + service.getPriceForPerson(2L));
+        service.getAllCriteria().forEach(System.out::println);
+        System.out.println(service.getLowerPrice());
+        System.out.println(service.findByAgeCriteria(50,100));
+        System.out.println(service.getAllPeopleCriteria());
+        System.out.println(service.findOlderFiftyCriteria());
     }
 }

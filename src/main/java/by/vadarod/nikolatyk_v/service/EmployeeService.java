@@ -35,4 +35,8 @@ public class EmployeeService {
     public double getEmployeeExpenses() {
         return employeeRepository.getEmployeeExpenses();
     }
+
+    public List<Employee> getAllCriteria(){
+        return employeeRepository.getAllCriteria();
+    }
 }
