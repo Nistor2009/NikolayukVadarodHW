@@ -5,6 +5,8 @@ import by.vadarod.nikolatyk_v.repository.SportServRepository;
 import by.vadarod.nikolatyk_v.repository.SportServRepositoryImpl;
 import org.hibernate.SessionFactory;
 
+import java.util.Optional;
+
 public class SportServService {
     private final SportServRepository sportServRepository;
     public SportServService(SessionFactory sessionFactory) {
@@ -17,5 +19,9 @@ public class SportServService {
 
     public SportServ getSportServByName(String name) {
         return sportServRepository.getSportServByName(name);
+    }
+
+    public Optional<SportServ> getLowerPrice(){
+        return sportServRepository.getLowerPriceCriteria();
     }
 }

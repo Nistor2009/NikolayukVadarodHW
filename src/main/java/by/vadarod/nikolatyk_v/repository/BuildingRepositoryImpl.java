@@ -1,8 +1,16 @@
 package by.vadarod.nikolatyk_v.repository;
 
 import by.vadarod.nikolatyk_v.entity.Building;
+import by.vadarod.nikolatyk_v.entity.Record;
+import by.vadarod.nikolatyk_v.entity.SportServ;
+import by.vadarod.nikolatyk_v.entity.Visitor;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -114,4 +122,46 @@ public class BuildingRepositoryImpl implements BuildingRepository{
         session.close();
         return pricePerHour/maxPeopleCount;
     }
+
+    @Override
+    public int getAllPeopleCriteria(){
+        EntityManager entityManager = sessionFactory.createEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Integer> criteriaQuery = criteriaBuilder.createQuery(Integer.class);
+        Root<Building> root = criteriaQuery.from(Building.class);
+        criteriaQuery.select(criteriaBuilder.sum(root.get("maxPeopleCount")));
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
+
+    @Override
+    public List<Building> findOlderFiftyCriteria(){
+//        select b.* from work.building b
+//        left join work.record r on r.building_id = b.id
+//        join work.client cl on cl.id = r.client_id
+//        where cl.age > 50
+        List<Building> buildings;
+        EntityManager entityManager = sessionFactory.createEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Building> criteriaQuery = criteriaBuilder.createQuery(Building.class);
+        Root<Building> rootBuilding = criteriaQuery.from(Building.class);
+        Root<Record> rootRecord = criteriaQuery.from(Record.class);
+        System.out.println( rootRecord.getJoins());
+        /*
+        getJoins выдал пустой массив. Далее попытка join выдает Attribute 'by.vadarod.nikolatyk_v.entity.Record#buildingId(BASIC)' is not joinable
+        что с этим делать я, честно не знаю
+         */
+//        Join<Record, Building> buildingJoin = rootRecord.join("buildingId");
+//        buildingJoin.on(criteriaBuilder.equal(rootBuilding.get("id"), rootRecord.get("buildingId")));
+//        Join<Record, Visitor> visitorJoin = buildingJoin.join("clientId");
+//        criteriaQuery.where(criteriaBuilder.gt(visitorJoin.get("age"), 50));
+        criteriaQuery.select(rootBuilding);
+        try {
+            buildings = entityManager.createQuery(criteriaQuery).getResultList();;
+        } catch (NoResultException e) {
+            buildings = List.of();
+        }
+        entityManager.close();
+        return buildings;
+    }
 }
+

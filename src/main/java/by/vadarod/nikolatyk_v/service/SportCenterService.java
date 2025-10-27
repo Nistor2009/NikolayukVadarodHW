@@ -72,6 +72,9 @@ public class SportCenterService {
         return sportServService.getSportServByName(name);
     }
 
+    public Optional<SportServ> getLowerPrice(){
+        return sportServService.getLowerPrice();}
+
     /*
         Building
      */
@@ -100,7 +103,12 @@ public class SportCenterService {
     public double getPriceForPerson(Long id) {
         return buildingService.getPriceForPerson(id);
     }
+    public int getAllPeopleCriteria(){
+        return buildingService.getAllPeopleCriteria();}
 
+    public List<Building> findOlderFiftyCriteria(){
+        return buildingService.findOlderFiftyCriteria();
+    }
     /*
     Visitor
      */
@@ -115,6 +123,8 @@ public class SportCenterService {
     public Optional<Visitor> getVisitorById(Long id) {
         return visitorService.getById(id);
     }
+    public List<Visitor> findByAgeCriteria(int from, int to){
+       return visitorService.findByAgeCriteria(from, to);}
 
     /*
     Employee
@@ -139,6 +149,9 @@ public class SportCenterService {
     }
     public double getEmployeeExpenses(){
         return employeeService.getEmployeeExpenses();
+    }
+    public List<Employee> getAllCriteria(){
+        return employeeService.getAllCriteria();
     }
 
     /*

@@ -24,4 +24,7 @@ public class VisitorService {
     public Optional<Visitor> getById(Long id) {
         return visitorRepository.getById(id);
     }
+    public List<Visitor> findByAgeCriteria(int from, int to){
+        return visitorRepository.findByAgeCriteria(from, to);
+    }
 }

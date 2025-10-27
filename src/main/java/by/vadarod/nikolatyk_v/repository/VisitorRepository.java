@@ -9,4 +9,5 @@ public interface VisitorRepository {
     public Long add(Visitor visitor);
     public List<Visitor> findALl();
     public Optional<Visitor> getById(Long id);
+    public List<Visitor> findByAgeCriteria(int from, int to);
 }

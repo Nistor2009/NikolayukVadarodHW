@@ -1,7 +1,12 @@
 package by.vadarod.nikolatyk_v.repository;
 
+import by.vadarod.nikolatyk_v.entity.SportServ;
 import by.vadarod.nikolatyk_v.entity.Visitor;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -52,5 +57,21 @@ public class VisitorRepositoryImpl implements VisitorRepository{
         }
         session.close();
         return Optional.ofNullable(visitor);
+    }
+    @Override
+    public List<Visitor> findByAgeCriteria(int from, int to){
+        EntityManager entityManager = sessionFactory.createEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Visitor> criteriaQuery = criteriaBuilder.createQuery(Visitor.class);
+        Root<Visitor> root = criteriaQuery.from(Visitor.class);
+        criteriaQuery.select(root).where(criteriaBuilder.between(root.get("age"), from, to));
+        List<Visitor> visitors;;
+        try {
+            visitors = entityManager.createQuery(criteriaQuery).getResultList();
+        } catch (NoResultException e) {
+            visitors = List.of();
+        }
+        entityManager.close();
+        return visitors;
     }
 }
