@@ -7,10 +7,7 @@ import java.util.NoSuchElementException;
 public class Main {
     public static void main(String[] args) throws Exception {
         SportCenterService service = new SportCenterService();
-        service.getAllCriteria().forEach(System.out::println);
-        System.out.println(service.getLowerPrice());
-        System.out.println(service.findByAgeCriteria(50,100));
-        System.out.println(service.getAllPeopleCriteria());
-        System.out.println(service.findOlderFiftyCriteria());
+        service.testCash3Request(); //Делает 3 запроса в бд
+        service.testCash2Request(); //Делает 2 запроса в бд при условии, что все id существуют. Списком передать не получилось, даже использую кэш второго уровня
     }
 }

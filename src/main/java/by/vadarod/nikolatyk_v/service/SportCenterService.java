@@ -3,15 +3,17 @@ package by.vadarod.nikolatyk_v.service;
 import by.vadarod.nikolatyk_v.config.HibernateJavaConfig;
 import by.vadarod.nikolatyk_v.entity.*;
 import by.vadarod.nikolatyk_v.entity.Record;
+import by.vadarod.nikolatyk_v.repository.SportServRepository;
+import by.vadarod.nikolatyk_v.repository.SportServRepositoryImpl;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class SportCenterService {
 
@@ -238,6 +240,53 @@ public class SportCenterService {
         record.setDate(LocalDate.of(2025, Month.JUNE,22));
         record.setTime(LocalTime.of(17,30));
         recordService.addRecord(record);
+    }
+
+    public void testCash3Request(){
+        Session session = sessionFactory.openSession();
+        //получение всех активностей
+        List<SportServ> sportServs;
+        Query query;
+        sportServs = session.createQuery("select s FROM SportServ s", SportServ.class).getResultList();
+        sportServs.forEach(System.out::println);
+        //получение всех работников
+        List<Employee> employees;
+        employees = session.createQuery("select e FROM Employee e", Employee.class).getResultList();
+        employees.forEach(System.out::println);
+        //поиск активностей по id
+        List<Long> ids = List.of(1L, 2L, 3L);
+        List<SportServ> sportServsById;
+        query = session.createQuery("select s from SportServ s where s.id in(:ids)", SportServ.class);
+        query.setParameter("ids", ids);
+        sportServsById = query.getResultList();
+        sportServsById.forEach(System.out::println);
+        session.close();
+    }
+
+
+    public void testCash2Request(){
+        Session session = sessionFactory.openSession();
+        //получение всех активностей
+        List<SportServ> sportServs;
+        Query query;
+        sportServs = session.createQuery("select s FROM SportServ s", SportServ.class).getResultList();
+        sportServs.forEach(System.out::println);
+        //получение всех работников
+        List<Employee> employees;
+        employees = session.createQuery("select e FROM Employee e", Employee.class).getResultList();
+        employees.forEach(System.out::println);
+        //поиск активностей по id
+        List<Long> ids = List.of(1L, 2L);
+        List<SportServ> sportServsById = new ArrayList<>();
+        SportServ sportServ;
+        for(Long l: ids){
+            sportServ = session.get(SportServ.class, l);
+            if(sportServ != null){
+                sportServsById.add(sportServ);
+            }
+        }
+        sportServsById.forEach(System.out::println);
+        session.close();
     }
 
 }
