@@ -21,6 +21,11 @@ public class HibernateJavaConfig {
         properties.setProperty("hibernate.format_sql", "true");
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
+        properties.setProperty("hibernate.cache.use_second_level_cache", "true");
+        properties.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jcache.JCacheRegionFactory");
+        properties.setProperty("hibernate.javax.cache.provider", "org.ehcache.jsr107.EhcacheCachingProvider");
+        properties.setProperty("hibernate.javax.cache.uri", "META-INF/config/ehcache.xml");
+        properties.setProperty("hibernate.javax.cache.use_query_cache", "true");
 
         configuration = new Configuration();
         configuration.addAnnotatedClass(Client.class);

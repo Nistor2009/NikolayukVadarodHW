@@ -2,6 +2,7 @@ package by.vadarod.nikolatyk_v.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @Getter
 @ToString
 @AllArgsConstructor
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, includeLazy = false)
 public class SportServ {
     @Id
     @SequenceGenerator(name = "serviceSequence", sequenceName = "s_service", allocationSize = 1, schema = "work")
