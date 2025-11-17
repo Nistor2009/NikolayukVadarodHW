@@ -34,6 +34,7 @@ public class BuildingService {
     }
 
     public double getPriceForPerson(Long id) {
+        int i;
         return buildingRepository.getPriceForPerson(id);
     }
     public int getAllPeopleCriteria(){return buildingRepository.getAllPeopleCriteria();}
